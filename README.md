@@ -186,7 +186,7 @@ restart the script if it completed a few steps.
 Please visit https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.0/x86_64/product-software and use the
 combo boxes to select the correct guest image for use with the tests.  For example for 7.7 you would select 7.7 in the
 version and then select Red Hat Enterprise Linux Fast Datapath from the Product Variant.  Save this to the DUT
-as the Ansible script will use it for the test setup.  You will need to modify the trex_settings.yml file to specify
+as the Ansible script will use it for the test setup.  You will need to modify the trex\_settings.yml file to specify
 where this was saved.
 
 For other streams such as 8.0 you just need to change the link to find 8.0 images
@@ -195,7 +195,7 @@ https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.0/x86_64/product
 
 ## Setup the TRex traffic generator
 
-Use the Ansible script trex_setup.yml to setup the trex server system.
+Use the Ansible script trex\_setup.yml to setup the trex server system.
 
     sudo ansible-playbook trex_setup.yml
 
@@ -382,6 +382,7 @@ flows_ as ran before on the DPDK datapath:
   --packet-list=64 \
   --stream-list=1000 \
   --no-bridge-config \
+  --testpmd-startup-delay=8 \
   --skip-pv-test
 - Connecting to the tester...
 - Connecting to DUT, "10.19.17.133"...
@@ -466,7 +467,7 @@ offload using TC flower.
 
 ### Configuring the Linux Kernel datapath with TC Flower offload
 
-Run the Ansible script pvp_tcflower_offload.yml
+Run the Ansible script pvp\_tcflower\_offload.yml
 
     sudo ansible-playbook pvp_tcflower_offload.yml
 
@@ -495,10 +496,11 @@ flows_ as ran before on the other datapaths:
   --dut-vm-password root \
   --physical-interface enp3s0np0 \
   --virtual-interface eth1 \
-  --dut-vm-nic-pci=0000:00:06.0 \
+  --dut-vm-nic-pci=0000:00:04.0 \
   --stream-list=1000 \
   --packet-list=64 \
   --no-bridge-config \
+  --testpmd-startup-delay=8 \
   --skip-pv-test
 - Connecting to the tester...
 - Connecting to DUT, "wsfd-netdev16.ntdv.lab.eng.bos.redhat.com"...

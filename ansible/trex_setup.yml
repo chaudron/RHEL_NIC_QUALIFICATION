@@ -1,7 +1,7 @@
 - name: T-Rex Setup 
   hosts: trex
   vars_files:
-    - /etc/ansible/test_settings.yml
+    - test_settings.yml
   tasks:
   - debug: 
       msg: Debug mode is enabled
@@ -139,11 +139,11 @@
       dest: /root/trex
       copy: no
   - name: run t-rex setup script (use mac mode)
-    shell: python /root/trex/{{ trex_version }}/dpdk_setup_ports.py -c {{trex_interface_1}} {{trex_interface_2}} --force-mac -o /etc/trex-cfg.yaml
+    shell: python /root/trex/{{ trex_version }}/dpdk_setup_ports.py -c {{trex_interface_1}} {{trex_interface_2}} --force-mac -o /etc/trex_cfg.yaml
   - name: debug actions for t-rex setup
     block:
       - shell: 
-          command: cat /etc/trex-cfg.yaml
+          command: cat /etc/trex_cfg.yaml
           register: output
       - debug:
           var: output.stdout
@@ -158,7 +158,7 @@
   - name: Start tuned server
     shell: systemctl start tuned
   - name: Getting isolated core list
-    shell: cat /etc/trex-cfg.yaml | grep threads | awk '{ print $2 }' | tr -d "[]"
+    shell: cat /etc/trex_cfg.yaml | grep threads | awk '{ print $2 }' | tr -d "[]"
     register: corelist
   - debug:
       var: corelist
